@@ -1,0 +1,124 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #054B93;
+  color: white;
+}
+
+#top {
+  text-align: center;
+}
+#movieForm, #movieListForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#movieForm span {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#ratingSpan {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.text-area-span {
+  text-align: left;
+}
+
+#ratingValue {
+ padding-left: 0px;
+ margin: 0;
+}
+#ratingRange {
+  padding-right: 0px;
+}
+
+#top h1 {
+  font-size: 2em;
+}
+textarea {
+  background-color: #054B93;
+  border: 1px solid white;
+  color: white;
+}
+
+#movies {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.movie-info {
+  border: 1px solid white;
+  width: 30%;
+  text-align: center;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.add-review-form {
+  display: none; /* will become display: block in client.js */
+}
+.add-review-form div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.review-rating-span {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.movie-plot, .movie-review {
+  text-align: center;
+  width: 100%;
+  margin-top: 0px;
+  font-size: 14px;
+}
+
+.reviewer-name {
+  text-align: center;
+}
+
+.movie-rating {
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  width: 100%;
+}
+
+.trailer-link a {
+  display:inline-block;
+  /* transition: all .2s ease-in-out; */
+}
+
+.trailer-link a {
+  color: darkgoldenrod;
+}
+.trailer-link a:link {
+  color: forestgreen;
+}
+.trailer-link a:visited {
+  color: white;
+}
+.trailer-link a:hover {
+  transform: scale(1.1, 1.1);
+}
+.trailer-link a:active {
+  color: orange;
+}
+
+
+#content span {
+  display: flex;
+  justify-content: center;
+  margin-left: 10px;
+}
