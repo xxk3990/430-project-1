@@ -65,10 +65,9 @@ const onRequest = (request, response) => {
   console.dir(parsedUrl.pathname);
   console.dir(request.method);
 
-  // not perfect and will fail if HTTP method is not 'GET' or 'HEAD'
   if (request.method === 'POST') {
     handlePost(request, response, parsedUrl);
-  } else if (request.method === 'GET' || request.method === 'HEAD') {
+  } else if (request.method === 'GET') {
     if (urlStruct[request.method][parsedUrl.pathname]) {
       urlStruct[request.method][parsedUrl.pathname](request, response);
     } else {

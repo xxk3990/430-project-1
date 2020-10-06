@@ -1,6 +1,7 @@
 // Note this object is purely in memory
 const movies = {};
 const reviews = {};
+const {v4: uuidv4} = require('uuid'); //import uuid version 4, v4 creates random uuids
 
 const respondJSON = (request, response, status, object) => {
   const headers = {
@@ -51,20 +52,23 @@ const addMovie = (request, response, body) => {
     responseJSON.message = 'Missing params title, plot, name, rating, review, and/or trailer!';
     return respondJSON(request, response, 400, responseJSON);
   }
-
+  const randomID = uuidv4(movies[body.title]); //create a random uuid for each film
   let responseCode = 201;
-  if (movies[body.title]) {
-    responseCode = 201;
+  if (movies[body.randomID]) {
+    responseCode = 204;
   } else {
-    movies[body.title] = {};
+    movies[body.randomID] = {};
   }
-  movies[body.title].title = body.title;
-  movies[body.title].rating = body.rating;
-  movies[body.title].review = body.review;
-  movies[body.title].name = body.name;
-  movies[body.title].plot = body.plot;
-  movies[body.title].trailer = body.trailer;
+  //set up properties based on the uuid and not the title
+  movies[body.randomID].title = body.title;
+  movies[body.randomID].rating = body.rating;
+  movies[body.randomID].review = body.review;
+  movies[body.randomID].name = body.name;
+  movies[body.randomID].plot = body.plot;
+  movies[body.randomID].trailer = body.trailer;
 
+  
+  responseCode = 201;
   if (responseCode === 201) {
     const movieData = {
       title: body.title,
@@ -73,8 +77,9 @@ const addMovie = (request, response, body) => {
       review: body.review,
       trailer: body.trailer,
       name: body.name,
+      id: randomID,
     };
-
+    console.log(randomID);
     return respondJSON(request, response, responseCode, movieData);
   }
 
@@ -96,12 +101,14 @@ const addReview = (request, response, body) => {
   } else {
     reviews[body.title] = {};
   }
+  reviews[body.title].movieTitle = body.movieTitle;
   reviews[body.title].newReviewer = body.newReviewer;
   reviews[body.title].newReview = body.newReview;
   reviews[body.title].newRating = body.newRating;
 
   if (responseCode === 201) {
     const newReviewData = {
+      movieTitle: body.movieTitle,
       newReviewer: body.newReviewer,
       newRating: body.newRating,
       newReview: body.newReview,

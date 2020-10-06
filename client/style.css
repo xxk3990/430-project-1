@@ -10,7 +10,7 @@ html, body {
 #top {
   text-align: center;
 }
-#movieForm, #movieListForm {
+#movieForm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,13 +46,27 @@ textarea {
 }
 
 #movies {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* repeat() allows for adding dynamic elements to grid */
+  grid-template-rows: repeat(2, 1fr); /* It will still work after 2nd row of films is added */
+  grid-gap: 2rem;
+  width: 100vw;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#lotrInfo, #fargoInfo {
+  visibility: hidden;
+}
+
+#message {
+  visibility: hidden;
+  text-align: center;
 }
 
 .movie-info {
   border: 1px solid white;
-  width: 30%;
+  width: 100%;
   text-align: center;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -115,7 +129,6 @@ textarea {
 .trailer-link a:active {
   color: orange;
 }
-
 
 #content span {
   display: flex;
