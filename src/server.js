@@ -62,11 +62,12 @@ const urlStruct = {
 
 const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
-  const params = query.parse(parsedUrl.query);
+  // const params = query.parse(parsedUrl.query);
   console.dir(parsedUrl.pathname);
   console.dir(request.method);
   if (parsedUrl.pathname === '/getMovies') {
-    jsonHandler.getMovies(request, response, params);
+    // PARAMS WOULD WORK BUT NODE DOESN'T LIKE FOR...OF LOOPS
+    jsonHandler.getMovies(request, response);
   }
   if (request.method === 'POST') {
     handlePost(request, response, parsedUrl);

@@ -21,28 +21,28 @@ const respondJSONMeta = (request, response, status) => {
   response.writeHead(status, headers);
   response.end();
 };
-const getMovies = (request, response, params) => {
+const getMovies = (request, response) => {
   // create a parent object to hold the movies object
   // we could add a message, status code etc ... to this parent object
   const responseJSON = {
     movies,
   };
-
-  for (const mov of Object.keys(responseJSON.movies)) {
-    if (!params.best || params.best !== 'true') {
-      return respondJSON(request, response, 200, responseJSON); //do normal stuff
-    } else {
-      if (responseJSON.movies[mov].review.rating >= 3.5) {
-        responseJSON.movies = responseJSON.movies[mov];
-        return respondJSON(request, response, 200, responseJSON.movies)
-      } else {
-        delete responseJSON.movies[mov];
-        return respondJSON(request, response, 200, responseJSON);
-      }
-      // console.dir(mov)
-    }
-    // return respondJSON(request, response, 200, responseJSON);
-  }
+  // //ONLY WORKS THIS WAY
+  // for (const mov of Object.keys(responseJSON.movies)) {
+  //   if (!params.best || params.best !== 'true') {
+  //     return respondJSON(request, response, 200, responseJSON); //do normal stuff
+  //   } else {
+  //     if (responseJSON.movies[mov].review.rating >= 3.5) {
+  //       responseJSON.movies = responseJSON.movies[mov];
+  //       return respondJSON(request, response, 200, responseJSON.movies)
+  //     } else {
+  //       delete responseJSON.movies[mov];
+  //       return respondJSON(request, response, 200, responseJSON);
+  //     }
+  //     // console.dir(mov)
+  //   }
+  //   // return respondJSON(request, response, 200, responseJSON);
+  // }
 
   return respondJSON(request, response, 200, responseJSON);
 };
@@ -58,12 +58,13 @@ const updateMovie = (request, response) => {
   // 201 status code == "created"
   return respondJSON(request, response, 201, newMovie);
 };
+
 const addMovie = (request, response, body) => {
   const responseJSON = {
     message: 'Title, plot, rating, and review are required!',
   };
-  if (!body.title || !body.rating || !body.reviewer_name ||
-    !body.trailer || !body.review || !body.plot) {
+  if (!body.title || !body.rating || !body.reviewer_name
+    || !body.trailer || !body.review || !body.plot) {
     responseJSON.id = 'missingParams';
     responseJSON.message = 'Missing params title, plot, name, trailer, rating, and review';
     return respondJSON(request, response, 400, responseJSON);

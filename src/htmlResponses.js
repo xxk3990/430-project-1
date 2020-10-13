@@ -21,7 +21,7 @@ const getBgImage = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'image/jpeg' });
   response.write(bgImg);
   response.end();
-}
+};
 
 // get client.js file
 const getClientJS = (request, response) => {
