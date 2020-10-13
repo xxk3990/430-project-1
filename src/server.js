@@ -51,7 +51,7 @@ const urlStruct = {
     '/style.css': htmlHandler.getCSS,
     '/client.js': htmlHandler.getClientJS,
     '/updateMovie': jsonHandler.updateMovie,
-    //'theater-bg.jpg': htmlHandler.getBgImage,
+    '/theater-bg.jpg': htmlHandler.getBgImage,
     notFound: jsonHandler.notFound,
   },
   HEAD: {

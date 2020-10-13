@@ -3,9 +3,10 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: #054B93;
   color: white;
-  font-family: 'sans-serif'
+  font-family: 'sans-serif';
+  /* image from: https://pixabay.com/photos/florida-state-university-theater-86197/ */
+  background-image: url('./theater-bg.jpg');
 }
 
 #top {
@@ -67,7 +68,7 @@ textarea {
   text-align: center;
   overflow-y: scroll;
   scrollbar-width: none;
-  
+  background-color: #054B93;
 }
 
 .add-review-form {
