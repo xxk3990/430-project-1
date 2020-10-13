@@ -21,28 +21,28 @@ const respondJSONMeta = (request, response, status) => {
   response.writeHead(status, headers);
   response.end();
 };
-const getMovies = (request, response) => {
+const getMovies = (request, response, params) => {
   // create a parent object to hold the movies object
   // we could add a message, status code etc ... to this parent object
   const responseJSON = {
     movies,
   };
-  // //ONLY WORKS THIS WAY
-  // for (const mov of Object.keys(responseJSON.movies)) {
-  //   if (!params.best || params.best !== 'true') {
-  //     return respondJSON(request, response, 200, responseJSON); //do normal stuff
-  //   } else {
-  //     if (responseJSON.movies[mov].review.rating >= 3.5) {
-  //       responseJSON.movies = responseJSON.movies[mov];
-  //       return respondJSON(request, response, 200, responseJSON.movies)
-  //     } else {
-  //       delete responseJSON.movies[mov];
-  //       return respondJSON(request, response, 200, responseJSON);
-  //     }
-  //     // console.dir(mov)
-  //   }
-  //   // return respondJSON(request, response, 200, responseJSON);
-  // }
+  // ONLY WORKS THIS WAY
+  for (const mov of Object.keys(responseJSON.movies)) {
+    if (!params.best || params.best !== 'true') {
+      return respondJSON(request, response, 200, responseJSON); // do normal stuff
+    }
+    if (responseJSON.movies[mov].review.rating >= 3.5) {
+      responseJSON.movies = responseJSON.movies[mov];
+      return respondJSON(request, response, 200, responseJSON.movies);
+    }
+    delete responseJSON.movies[mov];
+    return respondJSON(request, response, 200, responseJSON);
+
+    // console.dir(mov)
+
+    // return respondJSON(request, response, 200, responseJSON);
+  }
 
   return respondJSON(request, response, 200, responseJSON);
 };
