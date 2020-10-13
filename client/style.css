@@ -20,6 +20,7 @@ html, body {
 #movieForm span {
   margin-top: 10px;
   margin-bottom: 10px;
+  background-color: #054B93;
 }
 #ratingSpan {
   display: flex;
