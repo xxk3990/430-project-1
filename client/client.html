@@ -21,9 +21,20 @@
         <textarea id="plotField" name="plot" value="plot"></textarea>
       </span>
       <span id="ratingSpan">
-        <label for="ratingRange">Rating (out of 100%):</label>
-        <input type="range" id="ratingRange" value="0" min="0" max="100" step="1">
-        <p id="ratingValue">0%</p>
+        <label for="ratingRange">Rating (out of 5 stars):</label>
+        <select id='star-rating'>
+          <option value='0'>0 stars </option>
+          <option value='0.5'>0.5 stars </option>
+          <option value='1'>1 star </option>
+          <option value='1.5'>1.5 stars </option>
+          <option value='2'>2 stars </option>
+          <option value='2.5'>2.5 stars </option>
+          <option value='3'>3 stars </option>
+          <option value='3.5'>3.5 stars </option>
+          <option value='4'>4 stars </option>
+          <option value='4.5'>4.5 stars </option>
+          <option value='5'>5 stars </option>
+        </select>
       </span>
       <span class="text-area-span">
         <label for="reviewField">Review:</label> <br>
@@ -31,85 +42,21 @@
       </span>
       <span id="name-span">
         <label for="nameField">Your Name: </label>
-        <input id="nameField" type="name" name="name" />
+        <input id="nameField" type="name" name="reviewerName" />
       </span>
       <span>
-        <label for="trailerLink">Copy Trailer URL</label>
+        <label for="trailerLink">Copy Trailer URL:</label>
         <input type="url" id="trailerLink" />
       </span>
       <button id="addMovieBtn" type="button" value="Add Movie">Add Movie</button>
+      <!-- <input type="radio" name = "filters" id = "most-popular"><label for="most-popular">View Most Popular</label>
+      <input type = 'radio' name = 'filters' id = 'view-all'><label for="view-all">View All</label> -->
       <button id="showAllBtn" type="button" value="Get Movies">Show All Movies</button>
+      <!-- <button id="showTopBtn" type="button" value="Get Movies">Show Top Movies</button> -->
     </section>
   </section>
   <div id="message"></div>
   <section id="movies">
-      <section class='movie-info' id = "lotrInfo">
-        <h3 class="movie-title" id="lotr-movie-title"><em>The Lord of the Rings: The Return of the King</em></h3>
-        <h4 class="plot-header">Plot:</h4>
-        <!--The plot below I made up I did NOT take it from anywhere!-->
-        <p class="movie-plot" id="lotr-movie-plot">The final battle for Middle Earth takes place between Men and the
-          armies of Sauron.
-          Meanwhile, Samwise Gamgee and Frodo Baggins are in the final stretch of their quest to destroy the One Ring.
-        </p>
-        <section class="reviews" id='lotr-reviews'>
-          <h4 class="review-header">Reviews:</h4>
-          <div class="movie-rating">
-            <h5 class="reviewer-name">Xander Kaylan</h5>
-            <p>Rating: 100%</p>
-            <p class="movie-review" id="lotr-movie-review">Very good. Recommend watching the extended version.</p>
-          </div>
-        </section>
-        <button type="button" id="lotr-add-review" class="add-review">Add Review</button>
-        <section class="add-review-form" id="lotr-add-review-form">
-          <div>
-            <label for="lotr-new-reviewer">Name:</label><input type="name" id="lotr-new-reviewer"
-              class="new-reviewer-name" />
-            <textarea id="lotr-add-review-field" class="add-review-field"></textarea>
-            <span class="review-rating-span">
-              <input type="range" id="lotr-new-review-rating" class="new-review-rating" value="0" min="0" max="100"
-                step="1">
-              <p id="lotr-new-rating-value" class="new-rating-value">0%</p>
-            </span>
-            <button type="button" class="submit-new-review" id="lotr-submit-review" disabled>Submit Review</button>
-          </div>
-        </section>
-        <h3 class="trailer-link"><a target="_blank"
-            href="https://www.youtube.com/watch?v=r5X-hFf6Bwo&ab_channel=Movieclips">Trailer</a></h3>
-      </section>
-      <section class='movie-info' id = "fargoInfo">
-        <h3 class="movie-title" id="fargo-movie-title"><em>Fargo</em></h3>
-        <h4 class="plot-header">Plot:</h4>
-        <!--The plot below I made up I did NOT take it from anywhere!-->
-        <p class="movie-plot" id="fargo-movie-plot">A car salesman in need of cash visits Fargo, North Dakota and hires
-          two criminals to kidnap his wife, hoping to get a ransom payment from her rich father. His plan gradually
-          falls apart. Meanwhile, a police chief, Marge
-          Gunderson, investigates the kidnapping after one of the hired criminals shoots a state trooper.</p>
-        <section class="reviews" id='fargo-reviews'>
-          <h4 class="review-header">Reviews:</h4>
-          <div class="movie-rating">
-            <h5 class="reviewer-name">Xander Kaylan</h5>
-            <p>Rating: 100%</p>
-            <p class="movie-review" id="fargo-movie-review">Very well acted and directed.</p>
-          </div>
-        </section>
-        <button type="button" id="fargo-add-review" class="add-review">Add Review</button>
-        <section class="add-review-form" id="fargo-add-review-form">
-          <div>
-            <label for="fargo-new-reviewer">Name:</label><input type="name" id="fargo-new-reviewer"
-              class="new-reviewer-name" />
-            <textarea id="fargo-add-review-field" class="add-review-field"></textarea>
-            <span class="review-rating-span">
-              <input type="range" id="fargo-new-review-rating" class="new-review-rating" value="0" min="0" max="100"
-                step="1">
-              <p id="fargo-new-rating-value" class="new-rating-value">0%</p>
-            </span>
-            <button type="button" class="submit-new-review" id="fargo-submit-review" disabled>Submit Review</button>
-          </div>
-        </section>
-        <h3 class="trailer-link"><a target="_blank"
-            href="https://www.youtube.com/watch?v=h2tY82z3xXU&t=1s&ab_channel=MovieclipsClassicTrailers">Trailer</a>
-        </h3>
-      </section>
     <!--The section with id = 'content' gets created in client.js-->
   </section>
 </body>

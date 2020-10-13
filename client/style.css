@@ -5,6 +5,7 @@ html, body {
   padding: 0;
   background-color: #054B93;
   color: white;
+  font-family: 'sans-serif'
 }
 
 #top {
@@ -55,10 +56,6 @@ textarea {
   margin-right: 20px;
 }
 
-#lotrInfo, #fargoInfo {
-  visibility: hidden;
-}
-
 #message {
   visibility: hidden;
   text-align: center;
@@ -70,6 +67,7 @@ textarea {
   text-align: center;
   overflow-y: scroll;
   scrollbar-width: none;
+  
 }
 
 .add-review-form {

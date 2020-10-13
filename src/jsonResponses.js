@@ -1,14 +1,14 @@
 // Note this object is purely in memory
 const movies = {};
-const reviews = {};
-const {v4: uuidv4} = require('uuid'); //import uuid version 4, v4 creates random uuids
+// const reviews = {};
+const {
+  v4: uuidv4,
+} = require('uuid'); // import uuid version 4, v4 creates random uuids
 
 const respondJSON = (request, response, status, object) => {
-  const headers = {
+  response.writeHead(status, status, {
     'Content-Type': 'application/json',
-  };
-
-  response.writeHead(status, headers);
+  });
   response.write(JSON.stringify(object));
   response.end();
 };
@@ -21,13 +21,28 @@ const respondJSONMeta = (request, response, status) => {
   response.writeHead(status, headers);
   response.end();
 };
-
-const getMovies = (request, response) => {
+const getMovies = (request, response, params) => {
   // create a parent object to hold the movies object
   // we could add a message, status code etc ... to this parent object
   const responseJSON = {
     movies,
   };
+
+  for (const mov of Object.keys(responseJSON.movies)) {
+    if (!params.best || params.best !== 'true') {
+      return respondJSON(request, response, 200, responseJSON); //do normal stuff
+    } else {
+      if (responseJSON.movies[mov].review.rating >= 3.5) {
+        responseJSON.movies = responseJSON.movies[mov];
+        return respondJSON(request, response, 200, responseJSON.movies)
+      } else {
+        delete responseJSON.movies[mov];
+        return respondJSON(request, response, 200, responseJSON);
+      }
+      // console.dir(mov)
+    }
+    // return respondJSON(request, response, 200, responseJSON);
+  }
 
   return respondJSON(request, response, 200, responseJSON);
 };
@@ -47,74 +62,42 @@ const addMovie = (request, response, body) => {
   const responseJSON = {
     message: 'Title, plot, rating, and review are required!',
   };
-  if (!body.title || !body.rating || !body.name || !body.review || !body.plot || !body.trailer) {
+  if (!body.title || !body.rating || !body.reviewer_name ||
+    !body.trailer || !body.review || !body.plot) {
     responseJSON.id = 'missingParams';
-    responseJSON.message = 'Missing params title, plot, name, rating, review, and/or trailer!';
+    responseJSON.message = 'Missing params title, plot, name, trailer, rating, and review';
     return respondJSON(request, response, 400, responseJSON);
   }
-  const randomID = uuidv4(movies[body.title]); //create a random uuid for each film
+  const randomID = uuidv4(movies); // create a random uuid for each film
   let responseCode = 201;
-  if (movies[body.randomID]) {
+  if (movies[randomID]) {
     responseCode = 204;
   } else {
-    movies[body.randomID] = {};
+    movies[randomID] = {};
   }
-  //set up properties based on the uuid and not the title
-  movies[body.randomID].title = body.title;
-  movies[body.randomID].rating = body.rating;
-  movies[body.randomID].review = body.review;
-  movies[body.randomID].name = body.name;
-  movies[body.randomID].plot = body.plot;
-  movies[body.randomID].trailer = body.trailer;
 
-  
+  movies[randomID].title = body.title;
+  movies[randomID].rating = body.rating;
+  movies[randomID].review = body.review;
+  movies[randomID].reviewer_name = body.reviewer_name;
+  movies[randomID].plot = body.plot;
+  movies[randomID].trailer = body.trailer;
   responseCode = 201;
   if (responseCode === 201) {
-    const movieData = {
+    movies[randomID] = {
       title: body.title,
-      plot: body.plot,
-      rating: body.rating,
-      review: body.review,
-      trailer: body.trailer,
-      name: body.name,
       id: randomID,
+      plot: body.plot,
+      review: {
+        /* review is nested child object. It didn't make sense to have name in parent object,
+            has nothing to do with movie */
+        reviewer_name: body.reviewer_name,
+        rating: body.rating,
+        review: body.review,
+      },
+      trailer: body.trailer,
     };
-    console.log(randomID);
-    return respondJSON(request, response, responseCode, movieData);
-  }
-
-  return respondJSONMeta(request, response, responseCode);
-};
-
-const addReview = (request, response, body) => {
-  const responseJSON = {
-    message: 'New review, name, and rating are required!',
-  };
-  if (!body.newReviewer || !body.newReview || !body.newRating) {
-    responseJSON.id = 'missingParams';
-    responseJSON.message = 'Missing param name, review and/or rating!';
-    return respondJSON(request, response, 400, responseJSON);
-  }
-  let responseCode = 201;
-  if (reviews[body.title]) {
-    responseCode = 201; //instead of updating the review, add a new one!
-  } else {
-    reviews[body.title] = {};
-  }
-  reviews[body.title].movieTitle = body.movieTitle;
-  reviews[body.title].newReviewer = body.newReviewer;
-  reviews[body.title].newReview = body.newReview;
-  reviews[body.title].newRating = body.newRating;
-
-  if (responseCode === 201) {
-    const newReviewData = {
-      movieTitle: body.movieTitle,
-      newReviewer: body.newReviewer,
-      newRating: body.newRating,
-      newReview: body.newReview,
-    };
-
-    return respondJSON(request, response, responseCode, newReviewData);
+    return respondJSON(request, response, responseCode, movies[randomID]);
   }
 
   return respondJSONMeta(request, response, responseCode);
@@ -134,7 +117,6 @@ module.exports = {
   getMovies,
   getMoviesMeta,
   addMovie,
-  addReview,
   updateMovie,
   notFound,
   notFoundMeta,
