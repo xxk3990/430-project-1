@@ -125,7 +125,7 @@ const handleResponse = (xhr) => {
             // showAllBtn.setAttribute('disabled', true);
             break;
         case 201:
-            message.innerHTML = 'created!';
+            message.innerHTML = 'created! Click show all to view!';
             // loadData(xhr, true);
             break;
         case 204:
